@@ -1,0 +1,75 @@
+/* Небольшие правки поверх основного стиля — только для React-сборки. */
+
+#root { min-height: 100vh; }
+
+/* кнопки-фильтры периода в истории */
+.page-head .export-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ссылки-кнопки в шапке должны вести себя как кнопки */
+.nav-link { cursor: pointer; }
+
+/* числовые инпуты: убираем «пляшущие» стрелки в узких полях */
+input[type='number'] { -moz-appearance: textfield; }
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* панель «Отчёты» после результатов — тот же воздух, что и у других карточек */
+.results .export-bar { margin-top: 14px; }
+
+/* отключённая кнопка расчёта */
+.btn:disabled { opacity: 0.7; cursor: progress; }
+
+/* сноска под кнопкой расчёта: не вылезает за панель */
+.form-footnote {
+  position: relative;
+  z-index: 2;
+  margin: 12px 0 0;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(10, 15, 26, 0.92);
+  border: 1px solid var(--stroke-soft);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.form-footnote b { color: var(--text-soft); font-weight: 600; }
+/* декоративная «дорога» внизу панели не должна перекрывать сноску */
+.form-card-road { z-index: 0; }
+[data-theme="light"] .form-footnote { background: rgba(255, 255, 255, 0.94); }
+@media (max-width: 560px) {
+  .form-card-road { opacity: 0.5; }
+}
+
+/* история на телефоне: карточки показателей в одну колонку, без перелива */
+@media (max-width: 720px) {
+  .hist-grid .stats-row,
+  .stats-row {
+    grid-template-columns: 1fr !important;
+  }
+  .hist-grid { grid-template-columns: 1fr !important; }
+  .page-head .export-actions { width: 100%; }
+}
+
+/* никаких горизонтальных переливов на мобильных: широкие блоки скроллятся внутри себя */
+html, body { max-width: 100%; overflow-x: hidden; }
+.shell { min-width: 0; }
+.hist-grid, .workspace, .results, .glass { min-width: 0; }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* на узких экранах таблицы не сжимаются в нечитаемое — скроллятся внутри панели */
+@media (max-width: 720px) {
+  .table-scroll table { min-width: 620px; }
+}
+
+/* «Формат доставки»: подпись должна читаться целиком в узкой колонке панели */
+.panel-form .row-mode select {
+  font-size: 12px;
+  padding-left: 12px;
+  padding-right: 30px;
+  text-overflow: ellipsis;
+}
+@media (max-width: 430px) {
+  .panel-form .row-mode { grid-template-columns: 1fr; }
+}
